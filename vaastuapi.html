@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Projects</title>
+<style>
+  body {
+    font-family: sans-serif;
+  }
+  
+  .projects {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns:  1fr 1fr 1fr;
+  }
+  
+  .projects li {
+    margin: 1em;
+  }
+  
+  .projects li img {
+    width: 100%;
+  }
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $.getJSON('https://v2-api.sheety.co/e793b2a970744d7b88ea0d287e45cd66/vaastu/projects', function(data) {
+    var template = Handlebars.compile($('#item-template').html())
+    $('#projects').html(template(data.projects))
+  })
+})
+</script>
+<script id="item-template" type="text/x-handlebars-template">
+<ul class="projects">
+  {{#each this}}
+    <li>
+      <img src={{image1}}></img>
+      <h3>{{address}}</h3>
+      <h4>{{type}}</h3>
+      <p>{{details}}</p>
+      <p><small><a href="{{link}}" target=_blank>Contact Builder</a></small></p>
+    </li>
+  {{/each}}
+</ul>
+</script>
+</head>
+<body>
+<div id="projects">Loading projects...</div>
+</body>
+</html>
